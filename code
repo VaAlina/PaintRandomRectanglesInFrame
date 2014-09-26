@@ -1,0 +1,63 @@
+PaintRandomRectanglesInFrame
+============================
+
+package paintRect;
+import java.awt.Graphics;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class PaintRect extends JPanel implements Runnable{
+
+  public static void main(String[] a) {
+	  Thread th = new Thread(new PaintRect()); 
+	  th.start();
+  }
+  
+    public int getR(){
+    	Random color = new Random();
+    	int r = color.nextInt(255);
+    	return r;
+    }
+    public int getG(){
+    	Random color = new Random();
+    	int g = color.nextInt(255);
+    	return g;
+    }
+    public int getB(){
+    	Random color = new Random();
+    	int b = color.nextInt(255);
+    	return b;
+    }
+
+	public int getX(){
+		Random positionX = new Random();
+		int x = positionX.nextInt(200);
+		return x;
+	}
+	public int getY(){
+		Random positionY = new Random();
+		int y = positionY.nextInt(200);
+		return y;
+	}
+    public void paint(Graphics g) {
+        g.fillRect (getX(), getY(), 50, 50); 
+      }
+
+	@Override
+	public void run() {
+		  for (int i =0; i < 50; i++){
+			    JFrame f = new JFrame();
+			    f.setSize(400, 400);
+			    f.add(new PaintRect());
+			    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			    f.setVisible(true);
+			    try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				}
+		
+	}
+}
